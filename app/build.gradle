@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
+
+android {
+    compileSdkVersion 33
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+
+    defaultConfig {
+        applicationId "com.shahnawaz.nytimes"
+        minSdkVersion 16
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
+        }
+
+    }
+
+
+    dataBinding {
+        enabled = true
+    }
+
+
+}
+
+def retrofitVersion = '2.9.0'
+def daggerVersion = '2.43.1'
+
+def rxAndroidVersion = '2.1.1'
+def rxJavaVersion = '2.2.21'
+def mockitoVersion = '4.6.1'
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
+    //kapt is used for kotlin handles anotation processor different than java
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+
+    def androidx_test_espresso = '3.4.0'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
+    implementation "androidx.test.espresso:espresso-idling-resource:$androidx_test_espresso"
+
+
+
+}
